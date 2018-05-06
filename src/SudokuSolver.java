@@ -4,6 +4,8 @@ import org.sat4j.reader.ParseFormatException;
 import org.sat4j.specs.ContradictionException;
 import org.sat4j.specs.TimeoutException;
 
+//DISCLAIMER: Download sat4j-sat4j-sat-v20130419.zip from sat4j.org, extract it to your location of choice, and add it as a library to this project in the IDE.
+
 //puz0 is unsolvable. 97 milliseconds.  A little short.  I guess that makes sense, since it's unsolvable.
 //puz1 is solvable. 107 milliseconds.
 //puz2 is solvable. 125 milliseconds.
