@@ -335,6 +335,6 @@ public class SudokuSolver
 		
 		runTime = System.currentTimeMillis() - runTime;
 		
-		System.out.println(runTime); //This is for acquiring the run time.
+		System.out.println("\nRUNTIME: " + runTime); //This is for acquiring the run time.
 	}
 }
