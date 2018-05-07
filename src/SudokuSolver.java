@@ -37,6 +37,7 @@ public class SudokuSolver
 		else
 		{
 			System.out.println(problem + " has been solved!  Here's how it looks:");
+			
 			int solutionCursor = 0;
 			
 			for (int row = 0; row < puzzleBools.length; row++)
@@ -71,8 +72,8 @@ public class SudokuSolver
 	
 	static int[][] readPuzzle(String puzzleToRead)
 	{
-		int dimensionX = 0; //How wide is each box within the puzzle?  For our intents and purposes, this is basically not applicable, but I guess we have to do it?  That's our Sven!
-		int dimensionY = 0; //How tall is each box within the puzzle?  For our intents and purposes, this is basically not applicable, but I guess we have to do it?  That's our Sven!
+		int dimensionX = 0; //How wide is each box within the puzzle?  For our intents and purposes, this is basically not applicable.
+		int dimensionY = 0; //How tall is each box within the puzzle?  For our intents and purposes, this is basically not applicable.
 		int rowIndex = 0; //Keep track of whatever row we're currently reading.
 		int[][] puzzleToSolve = new int[0][0]; //Store the numbers in here, remembering their places.
 		String currLine = null; //This is for storing the current line.
@@ -89,7 +90,7 @@ public class SudokuSolver
 					continue;
 				}
 
-				else if (currLine.length() == 3) //The prerequisites for a sudoku puzzle probably won't go into double digits.  If the previous lines were comments, and if this one has only a length of 3, then it's certainly the dimensions of the puzzle.
+				else if (currLine.length() == 3) //The prerequisites for a sudoku puzzle probably won't go into double digits or even change from 3 x 3.  If the previous lines were comments, and if this one has only a length of 3, then it's certainly the dimensions of the puzzle.
 				{
 					dimensionX = Integer.parseInt(currLine.substring(0, 1));
 					dimensionY = Integer.parseInt(currLine.substring(2, 3));
