@@ -18,6 +18,39 @@ import org.sat4j.specs.TimeoutException;
 //puz9 is solvable. 135 milliseconds.  This one must be challenging.
 //The program works basically in 0.12 seconds.
 
+/*
+
+For example, puz6 looks like this:
+
+3 3
+0 0 0 5 0 3 0 0 0 
+0 0 0 0 6 0 7 0 0 
+5 0 8 0 0 0 0 1 6 
+3 6 0 0 2 0 0 0 0 
+0 0 0 4 0 1 0 0 0 
+0 0 0 0 3 0 0 0 5 
+6 7 0 0 0 0 2 0 8 
+0 0 4 0 7 0 0 0 0 
+0 0 0 2 0 0 5 0 0 
+
+The solution looks like this:
+
+puz6 has been solved!  Here's how it looks:
+
+7 4 6 5 1 3 8 9 2 
+1 3 2 8 6 9 7 5 4 
+5 9 8 7 4 2 3 1 6 
+3 6 7 9 2 5 4 8 1 
+9 2 5 4 8 1 6 7 3 
+4 8 1 6 3 7 9 2 5 
+6 7 9 1 5 4 2 3 8 
+2 5 4 3 7 8 1 6 9 
+8 1 3 2 9 6 5 4 7 
+
+RUNTIME: 140 milliseconds
+
+*/
+
 public class SudokuSolver
 {
 	static long runTime = System.currentTimeMillis();
@@ -36,7 +69,7 @@ public class SudokuSolver
 		
 		else
 		{
-			System.out.println(problem + " has been solved!  Here's how it looks:");
+			System.out.println(problem + " has been solved!  Here's how it looks:\n");
 			
 			int solutionCursor = 0;
 			
@@ -335,6 +368,6 @@ public class SudokuSolver
 		
 		runTime = System.currentTimeMillis() - runTime;
 		
-		System.out.println("\nRUNTIME: " + runTime); //This is for acquiring the run time.
+		System.out.println("\nRUNTIME: " + runTime + " milliseconds"); //This is for acquiring the run time.
 	}
 }
