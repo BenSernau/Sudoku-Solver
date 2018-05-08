@@ -49,6 +49,8 @@ puz6 has been solved!  Here's how it looks:
 
 RUNTIME: 140 milliseconds
 
+"Wait a minute!  I thought this was 109 milliseconds!" Different trial!
+
 */
 
 public class SudokuSolver
