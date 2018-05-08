@@ -81,7 +81,7 @@ public class SudokuSolver
 					{
 						if (solution[solutionCursor] > 0)
 						{
-							puzzleNums[row][column] = value;
+							puzzleNums[row][column] = value; //If at this point in the solution the number is positive and the boolean is true, then write this number on the actual puzzle.
 						}
 						
 						solutionCursor++;
@@ -93,7 +93,7 @@ public class SudokuSolver
 			{
 				for (int column = 0; column < puzzleNums[row].length; column++)
 				{
-					System.out.print((puzzleNums[row][column] + 1) + " ");
+					System.out.print((puzzleNums[row][column] + 1) + " "); //If you want to show the actual number, you need to add 1, since "value" in the for loop above goes from 0 to 8.
 				}
 				
 				System.out.print("\n");
@@ -105,8 +105,8 @@ public class SudokuSolver
 	
 	static int[][] readPuzzle(String puzzleToRead)
 	{
-		int dimensionX = 0; //How wide is each box within the puzzle?  For our intents and purposes, this is basically not applicable.
-		int dimensionY = 0; //How tall is each box within the puzzle?  For our intents and purposes, this is basically not applicable.
+		int dimensionX = 0; //How wide is each box within the puzzle?  For our intents and purposes, this is basically not applicable.  It's always gonna be 3.
+		int dimensionY = 0; //How tall is each box within the puzzle?  For our intents and purposes, this is basically not applicable.  It's always gonna be 3.
 		int rowIndex = 0; //Keep track of whatever row we're currently reading.
 		int[][] puzzleToSolve = new int[0][0]; //Store the numbers in here, remembering their places.
 		String currLine = null; //This is for storing the current line.
@@ -147,16 +147,16 @@ public class SudokuSolver
 		}
 
 		catch(FileNotFoundException ex) 
-        {
-            System.out.println("The file cannot open.");                
-        }
+		{
+		    System.out.println("The file cannot open.");                
+		}
 
-        catch(IOException ex) 
-        {
-			ex.printStackTrace();
-        }	
+		catch(IOException ex) 
+		{
+				ex.printStackTrace();
+		}	
 
-        return puzzleToSolve;
+		return puzzleToSolve;
 	}
 
 	static void setBooleans() 
@@ -169,8 +169,8 @@ public class SudokuSolver
 				{
 					if (puzzleNums[row][column] - 1 == value)
 					{
-						puzzleBools[row][column][value] = true;
-						clauseNum++;
+						puzzleBools[row][column][value] = true; //This value is already true.
+						clauseNum++; //We need to add a clause for every starting number.
 					}
 
 					else
@@ -191,7 +191,7 @@ public class SudokuSolver
 		try
 		{
 			BufferedWriter cnfWriter = new BufferedWriter(new FileWriter(fileToPassSolver));
-			cnfWriter.write("p cnf 729 " + clauseNum);
+			cnfWriter.write("p cnf 729 " + clauseNum);  //It's always gonna be 729.  We add the clauses, too, which are kind of mutable.
 			cnfWriter.newLine();
 
 			//Create each row.
@@ -202,13 +202,13 @@ public class SudokuSolver
 				{
 					for (int column = 0; column < 9; column++)
 					{
-						cnfWriter.write((row * 81 + column * 9 + value + 1) + " ");
+						cnfWriter.write((row * 81 + column * 9 + value + 1) + " "); //It's AT LEAST one of these numbers.
 					}
 
 					cnfWriter.write("0");
 					cnfWriter.newLine();
 
-					for (int column_l = 0; column_l < 9; column_l++) //The 36 clauses: (-column_l v -column_r)
+					for (int column_l = 0; column_l < 9; column_l++) //The 36 clauses: (-column_l v -column_r) AT MOST
 					{
 						for (int column_r = column_l + 1; column_r < 9; column_r++) 
 						{
@@ -228,13 +228,13 @@ public class SudokuSolver
 				{
 					for (int row = 0; row < 9; row++)
 					{
-						cnfWriter.write((row * 81 + column * 9 + value + 1) + " ");
+						cnfWriter.write((row * 81 + column * 9 + value + 1) + " "); //AT LEAST
 					}
 
 					cnfWriter.write("0");
 					cnfWriter.newLine();
 
-					for (int row_l = 0; row_l < 9; row_l++) //The 36 clauses: (-row_l v -row_r)
+					for (int row_l = 0; row_l < 9; row_l++) //The 36 clauses: (-row_l v -row_r) AT MOST
 					{
 						for (int row_r = row_l + 1; row_r < 9; row_r++)  
 						{
@@ -262,7 +262,7 @@ public class SudokuSolver
 						{
 							for (int cursor_h = 0; cursor_h < 3; cursor_h++) //This is the vertical cursor within the current box.
 							{
-								cnfWriter.write(((box_w_min + cursor_w) * 81 + (box_h_min + cursor_h) * 9 + value + 1) + " ");
+								cnfWriter.write(((box_w_min + cursor_w) * 81 + (box_h_min + cursor_h) * 9 + value + 1) + " "); //AT LEAST
 							}
 						}
 
@@ -277,11 +277,11 @@ public class SudokuSolver
 
 								for (int cursor_w_r = 0; cursor_w_r < 3; cursor_w_r++)
 								{
-									for (int cursor_h_r = 0; cursor_h_r < 3; cursor_h_r++)
+									for (int cursor_h_r = 0; cursor_h_r < 3; cursor_h_r++) //7 layers woo!
 									{
 										if (Integer.parseInt(cursor_w_r + "" + cursor_h_r) > cursor)
 										{
-											cnfWriter.write("-" + ((box_w_min + cursor_w_l) * 81 + (box_h_min + cursor_h_l) * 9 + value + 1) + " -" + ((box_w_min + cursor_w_r) * 81 + (box_h_min + cursor_h_r) * 9 + value + 1) + " ");
+											cnfWriter.write("-" + ((box_w_min + cursor_w_l) * 81 + (box_h_min + cursor_h_l) * 9 + value + 1) + " -" + ((box_w_min + cursor_w_r) * 81 + (box_h_min + cursor_h_r) * 9 + value + 1) + " "); //AT MOST
 											cnfWriter.write("0");
 											cnfWriter.newLine();
 										}
@@ -301,7 +301,7 @@ public class SudokuSolver
 				{
 					for (int value = 0; value < 9; value++)
 					{
-						cnfWriter.write((row * 81 + column * 9 + value + 1) + " ");
+						cnfWriter.write((row * 81 + column * 9 + value + 1) + " "); //AT LEAST
 					}
 
 					cnfWriter.write("0");
@@ -311,7 +311,7 @@ public class SudokuSolver
 					{
 						for (int value_r = value_l + 1; value_r < 9; value_r++) 
 						{
-							cnfWriter.write("-" + (row * 81 + column * 9 + value_l + 1) + " -" + (row * 81 + column * 9 + value_r + 1) + " ");
+							cnfWriter.write("-" + (row * 81 + column * 9 + value_l + 1) + " -" + (row * 81 + column * 9 + value_r + 1) + " "); //AT MOST
 							cnfWriter.write("0");
 							cnfWriter.newLine();
 						}
@@ -327,7 +327,7 @@ public class SudokuSolver
 					{
 						if (puzzleBools[row][column][value])
 						{
-							cnfWriter.write(row * 81 + column * 9 + value + 1 + " 0");
+							cnfWriter.write(row * 81 + column * 9 + value + 1 + " 0"); //Add the numbers that are already true.
 							cnfWriter.newLine();
 						}
 					}
@@ -342,14 +342,14 @@ public class SudokuSolver
 		}
 
 		catch(FileNotFoundException ex) 
-        {
-            System.out.println("The file cannot open.");                
-        }
+		{
+		    System.out.println("The file cannot open.");                
+		}
 
-        catch(IOException ex) 
-        {
+		catch(IOException ex) 
+		{
 			ex.printStackTrace();
-        }	
+		}	
 		
 		catch(ParseFormatException ex)
 		{
